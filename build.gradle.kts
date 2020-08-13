@@ -4,8 +4,8 @@
  * This generated file contains a sample Kotlin library project to get you started.
  */
 
- group = "de.bindoc.cli"
- version = "1.0.0"
+group = "de.bindoc.cli"
+version = "1.0.1"
 
 plugins {
     `maven-publish`
@@ -21,6 +21,24 @@ repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+}
+
+publishing {
+  repositories {
+    maven {
+      name = "GitHubPackages"
+      url = uri("https://maven.pkg.github.com/BinDoc-Projects/cli-indeterminate-progress-bar")
+      credentials {
+        username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+        password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+      }
+    }
+  }
+  publications {
+    register("gpr") {
+      from(components["java"])
+    }
+  }
 }
 
 dependencies {
